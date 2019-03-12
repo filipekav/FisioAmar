@@ -1,0 +1,180 @@
+{% extends 'Base.html' %}
+
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col s10 m6 l6">
+                <h5 class="breadcrumbs-title">Visita</h5>
+            </div>
+        </div>
+    </div>
+    <div id="basic-form" class="section">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h4 class="header2">Basico</h4>
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.data }}
+                                    <label for="data">Data da Visita</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.peso }}
+                                    <label for="peso">Peso</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.altura }}
+                                    <label for="altura">Altura</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.pa }}
+                                    <label for="altura">Pressão Arterial</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.glicemia }}
+                                    <label for="altura">Glicemia</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h4 class="header2">Coordenação</h4>
+
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordIdxIdxOpen }}
+                                    <label for="cordIdxIdxOpen">Index-Index (Olhos Abertos)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordIdxNazOpen }}
+                                    <label for="cordIdxNazOpen">Index-Nariz (Olhos Abertos)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordIdxIdx }}
+                                    <label for="cordIdxIdx">Index-Index</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordIdxNazOpen }}
+                                    <label for="cordIdxNaz">Index-Nariz</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordDiadococinesia }}
+                                    <label for="cordDiadococinesia">Diadococinesia</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.cordCalcanharJoelho }}
+                                    <label for="cordCalcanharJoelho">Calcanhar-Joelho</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h4 class="header2">Sensibilidade</h4>
+
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.estesiometroMaos }}
+                                    <label for="estesiometroMaos">Estesiometro Mãos</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.estesiometroPeDireito }}
+                                    <label for="estesiometroPeDireito">Estesiometro Pé (Direito)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.estesiometroPeEsquerdo }}
+                                    <label for="estesiometroPeEsquerdo">Estesiometro Pé (Esquerdo)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h4 class="header2">Reflexos</h4>
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.reflexoPatelarDireito }}
+                                    <label for="reflexoPatelarDireito">Reflexo Patelar (Direito)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.reflexoPatelarEsquerdo }}
+                                    <label for="reflexoPatelarEsquerdo">Reflexo Patelar (Esquerdo)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.reflexoTricipitalDireito }}
+                                    <label for="reflexoTricipitalDireito">Reflexo Tricipital (Direito)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.reflexoTricipitalEsquedo }}
+                                    <label for="reflexoTricipitalEsquedo">Reflexo Tricipital (Esquerdo)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h4 class="header2">Equilibrio</h4>
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.tinetti }}
+                                    <label for="tinetti">TINETTI</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ form.GetUpAndGo }}
+                                    <label for="GetUpAndGo">GET UP AND GO</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn purple accent-3 waves-effect waves-light z-depth-5">Salvar</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,247 @@
+{% extends 'Base.html' %}
+
+{% load v_p %}
+
+{% block main %}
+    <div id="profile-page-header" class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="https://fisioamar.s3.amazonaws.com/static/images/gallary/32.png" alt="user background">
+        </div>
+        <figure class="card-profile-image">
+            <img src="{{ paciente.foto.url }}" alt="profile image" class="circle z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan gradient-shadow">
+        </figure>
+        <br><br>
+        <div class="card-content">
+            <div class="row pt-2">
+                <div class="col s12 m3 offset-m2">
+                    <h4 class="card-title grey-text text-darken-4">{{ paciente.nome }}</h4>
+                </div>
+                <div class="col s12 m2 center-align">
+                    <h4 class="card-title grey-text text-darken-4">{{ idade }} Anos</h4>
+                    <p class="medium-small grey-text">Idade</p>
+                </div>
+                <div class="col s12 m2 center-align">
+                    <h4 class="card-title grey-text text-darken-4">{{ paciente.casa.nome }}</h4>
+                    <p class="medium-small grey-text">Casa de Apoio</p>
+                </div>
+                <div class="col s12 m2 center-align">
+                    <h4 class="card-title grey-text text-darken-4">{{ paciente.sexo }}</h4>
+                    <p class="medium-small grey-text">Sexo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <p>
+                    <span class="card-title grey-text text-darken-4">{{ paciente.nome }}
+                      <i class="material-icons right">close</i>
+                    </span>
+            </p>
+            <p>
+                <i class="material-icons cyan-text text-darken-2">cake</i> {{ paciente.nacimento|date:"d/m/Y" }}</p>
+            <p>
+                <i class="material-icons cyan-text text-darken-2">home</i> {{ paciente.casa.nome }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l6">
+            <div class="card-panel">
+                <div id="peso">
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12 l6">
+            <div class="card-panel">
+                <div id="glicemia">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l9">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel" style="overflow-x:auto;">
+                        <h4 class="header2">Basico</h4>
+                        <table class="bordered highlight">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Peso</th>
+                                <th>Altura</th>
+                                <th>Imc</th>
+                                <th>Resultado IMC</th>
+                                <th>PA</th>
+                                <th>Glicemia</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visita in visitas %}
+                                <tr>
+                                    <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                    <td>{% if visita.peso %}{{ visita.peso }} KG{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.altura %}{{ visita.altura }} M{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.imc %}{{ visita.imc }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.resultadoImc %}{{ visita.resultadoImc }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.pa %}{{ visita.pa }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.glicemia %}{{ visita.glicemia }} mg/dL{% else %}--------{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col s12 m12 l4">
+                    <div class="card-panel" style="overflow-x:auto;">
+                        <h4 class="header2">Equilibrio</h4>
+                        <table class="bordered highlight">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Tinetti</th>
+                                <th>Get up and go</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visita in visitas %}
+                                <tr>
+                                    <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                    <td>{% if visita.tinetti %}{{ visita.tinetti }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.GetUpAndGo %}{{ visita.GetUpAndGo }}{% else %}--------{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col s12 m12 l8">
+                    <div class="card-panel" style="overflow-x:auto;">
+                        <h4 class="header2">Reflexos</h4>
+                        <table class="bordered highlight">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Patelar <br> Direito</th>
+                                <th>Patelar <br> Esquerdo</th>
+                                <th>Tricipital <br> Direito</th>
+                                <th>Tricipital <br> Esquerdo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visita in visitas %}
+                                <tr>
+                                    <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                    <td>{% if visita.reflexoPatelarDireito %}{{ visita.reflexoPatelarDireito }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.reflexoPatelarEsquerdo %}{{ visita.reflexoPatelarEsquerdo }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.reflexoTricipitalDireito %}{{ visita.reflexoTricipitalDireito }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.reflexoTricipitalEsquedo %}{{ visita.reflexoTricipitalEsquedo }}{% else %}--------{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col s12 m12 l12">
+                    <div class="card-panel" style="overflow-x:auto;">
+                        <h4 class="header2">Coordenação</h4>
+                        <table class="bordered highlight">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Index-Index<br>(Olhos Abertos)</th>
+                                <th>Index-Nariz<br>(Olhos Abertos)</th>
+                                <th>Index-Index</th>
+                                <th>Index-Nariz</th>
+                                <th>Diadococinesia</th>
+                                <th>Calcanhar-Joelho</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visita in visitas %}
+                                <tr>
+                                    <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                    <td>{% if visita.cordIdxIdxOpen %}{{ visita.cordIdxIdxOpen }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.cordIdxNazOpen %}{{ visita.cordIdxNazOpen }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.cordIdxIdx %}{{ visita.cordIdxIdx }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.cordIdxNaz %}{{ visita.cordIdxNaz }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.cordDiadococinesia %}{{ visita.cordDiadococinesia }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.cordCalcanharJoelho %}{{ visita.cordCalcanharJoelho }}{% else %}--------{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col s12 m12 l12">
+                    <div class="card-panel" style="overflow-x:auto;">
+                        <h4 class="header2">Sensibilidade (Estesiometro)</h4>
+                        <table class="bordered highlight">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Mãos<br>D/E</th>
+                                <th>Pé<br>Direito</th>
+                                <th>Pé<br>Esquerdo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visita in visitas %}
+                                <tr>
+                                    <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                    <td>{% if visita.estesiometroMaos %}{{ visita.estesiometroMaos }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.estesiometroPeDireito %}{{ visita.estesiometroPeDireito }}{% else %}--------{% endif %}</td>
+                                    <td>{% if visita.estesiometroPeEsquerdo %}{{ visita.estesiometroPeEsquerdo }}{% else %}--------{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m12 l3">
+                <div class="card-panel">
+                    <h4 class="header2">Visitas</h4>
+                    <table class="bordered highlight">
+                        <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for visita in visitas %}
+                            <tr>
+                                <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                <td>
+                                    <a href="{% url 'edit-visita' paciente.id visita.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">edit</i></a>
+                                    <a id="{% url 'delete-visita' paciente.id visita.id %}" class="btn-floating btn-warning-cancel waves-effect waves-light gradient-45deg-red-pink gradient-shadow"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+        <a href="{% url 'new-visita' paciente.id%}" class="btn-floating btn-large waves-effect waves-light gradient-45deg-indigo-purple gradient-shadow">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        var meses = [ {% for visita in visitas %}  "{{ visita.data|date:"d/m/Y" }}", {% endfor %} ];
+
+        var Peso =  [ {% for visita in visitas %}  {{ visita.peso|v_p }} , {% endfor %} ];
+
+        var glicemia = [ {% for visita in visitas %}  {{ visita.glicemia }} , {% endfor %} ];
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script type="text/javascript" src="https://fisioamar.s3.amazonaws.com/static/js/paciente.js"></script>
+{% endblock %}

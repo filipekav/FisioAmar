@@ -1,0 +1,85 @@
+{% extends 'Base.html' %}
+
+{% block pesquisa %}
+    <div class="header-search-wrapper hide-on-med-and-down sideNav-lock">
+        <form method="post">
+            {% csrf_token %}
+            <i class="material-icons">search</i>
+            <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Buscar Pacientes" />
+        </form>
+    </div>
+
+
+
+{% endblock %}
+
+{% block main %}
+    <div class="container" style="padding-top: 20px;">
+        <div class="header-search-wrapper card hide-on-large-only input-field" >
+            <form method="post">
+                {% csrf_token %}
+                <i class="material-icons prefix" style="padding-top: 7px; padding-left: 7px;">search</i>
+                <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Buscar Pacientes" />
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s10 m6 l6">
+                <h5 class="breadcrumbs-title">Pacientes</h5>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <!-- statr items list -->
+        <div id="item-posts" class="row">
+            <div class="item-sizer"></div>
+            {% for paciente in pacientes %}
+                <div class="item product">
+                    <div class="card">
+                        <div class="circle card-image waves-effect waves-block waves-light">
+                            <a href="{% url 'paciente' paciente.id%}">
+                                <img src="{{ paciente.foto.url }}" height="300" alt="item-img" >
+                            </a>
+                        </div>
+                        <ul class="card-action-buttons">
+                            <li>
+                                <a href="{% url 'edit-paciente' paciente.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a id="{% url 'delete-paciente' paciente.id %}" class="btn-floating btn-warning-cancel waves-effect waves-light gradient-45deg-red-pink gradient-shadow">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <p class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">{{  paciente.nome }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {%  endfor %}
+        </div>
+        <!--/ end items list -->
+    </div>
+
+
+
+
+
+    <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+        <a href="{%  url 'new-paciente' %}" class="btn-floating btn-large waves-effect waves-light gradient-45deg-indigo-purple gradient-shadow">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+
+{% endblock %}
+

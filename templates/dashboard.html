@@ -1,0 +1,182 @@
+{% extends 'Base.html' %}
+
+
+{% block main %}
+    <div class="container">
+        <!--card stats start-->
+        <div id="card-stats">
+            <div class="row">
+                <div class="col s12 m6 l3">
+                    <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
+                        <div class="padding-4">
+                            <div class="col s7 m7">
+                                <i class="material-icons background-round mt-5">perm_identity</i>
+                                <p>Usuários</p>
+                            </div>
+                            <div class="col s5 m5 right-align">
+                                <h3 class="mb-0">{{ users|length }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
+                        <div class="padding-4">
+                            <div class="col s7 m7">
+                                <i class="material-icons background-round mt-5">home</i>
+                                <p>Casas de Apoio</p>
+                            </div>
+                            <div class="col s5 m5 right-align">
+                                <h3 class="mb-0">{{ casas|length }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
+                        <div class="padding-4">
+                            <div class="col s7 m7">
+                                <i class="material-icons background-round mt-5">assignment_ind</i>
+                                <p>Pacientes</p>
+                            </div>
+                            <div class="col s5 m5 right-align">
+                                <h3 class="mb-0">{{ pacientes|length }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
+                        <div class="padding-4">
+                            <div class="col s7 m7">
+                                <i class="material-icons background-round mt-5">assignment_turned_in</i>
+                                <p>Visitas</p>
+                            </div>
+                            <div class="col s5 m5 right-align">
+                                <h3 class="mb-0">{{ visitas|length }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12 l6">
+            <div class="card-panel" style="overflow-x:auto;">
+                <img src="https://fisioamar.s3.amazonaws.com/static/images/logo/FisioAmar-lat.png" alt="" class="responsive-img valign">
+            </div></div>
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card-panel" style="overflow-x:auto;">
+                    <h4 class="header2">Ultimos Pacientes</h4>
+                    <table class="bordered highlight">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data de Nacimento</th>
+                            <th>Sexo</th>
+                            <th>Casa de Apoio</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for paciente in ultimosPacientes %}
+                            <tr>
+                                <td>{{ paciente.nome  }}</td>
+                                <td>{{ paciente.nacimento|date:"d/m/Y" }}</td>
+                                <td>{{ paciente.sexo }}</td>
+                                <td>{{ paciente.casa }}</td>
+                                <td>
+                                    <a href="{% url 'edit-paciente' paciente.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">edit</i></a>
+                                    <a id="{% url 'delete-paciente' paciente.id %}" class="btn-floating btn-warning-cancel waves-effect waves-light gradient-45deg-red-pink gradient-shadow"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 m12 l6">
+                <div class="card-panel" style="overflow-x:auto;">
+                    <h4 class="header2">Últimas Visitas</h4>
+                    <table class="bordered highlight">
+                        <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Paciente</th>
+                            <th>Casa de Apoio</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for visita in ultimasVisitas %}
+                            <tr>
+                                <td>{{ visita.data|date:"d/m/Y"  }}</td>
+                                <td>{{ visita.paciente }}</td>
+                                <td>{{ visita.paciente.casa }}</td>
+                                <td>
+                                    <a href="{% url 'edit-visita' visita.paciente.id visita.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">edit</i></a>
+                                    <a id="{% url 'delete-visita' visita.paciente.id visita.id %}" class="btn-floating btn-warning-cancel waves-effect waves-light gradient-45deg-red-pink  gradient-shadow"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 m12 l6">
+                <div class="card-panel" style="overflow-x:auto;">
+                    <h4 class="header2">Pacientes com Hipertensão</h4>
+                    <table class="bordered highlight">
+                        <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Casa de Apoio</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for paciente in pacientes%}
+                            {% if paciente.alertaPA %}
+                                <tr>
+                                    <td>{{ paciente.nome }}</td>
+                                    <td>{{ paciente.casa }}</td>
+                                    <td>
+                                        <a href="{% url 'paciente' paciente.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">info</i></a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col s12 m12 l6">
+                <div class="card-panel" style="overflow-x:auto;">
+                    <h4 class="header2">Pacientes com Diabetes</h4>
+                    <table class="bordered highlight">
+                        <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Casa de Apoio</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for paciente in pacientes%}
+                            {% if paciente.alertaGlicemia %}
+                                <tr>
+                                    <td>{{ paciente.nome }}</td>
+                                    <td>{{ paciente.casa }}</td>
+                                    <td>
+                                        <a href="{% url 'paciente' paciente.id %}" class="btn-floating waves-effect waves-light gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">info</i></a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
